@@ -1,0 +1,197 @@
+q1)
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        
+        int n = matrix.length;
+        
+        for(int i = 0 ; i < n / 2 ; i ++ ){
+            
+            for(int j = i ; j < n - i - 1; j ++){
+                
+                int x1 = j, y1 = n - 1 - i;
+                int temp1 = matrix[x1][y1];
+                matrix[x1][y1] = matrix[i][j];
+                
+                int x2 = y1, y2 = n - 1 - x1;
+                int temp2 = matrix[x2][y2];
+                matrix[x2][y2] = temp1;
+                
+                int x3 = y2, y3 = n - 1 - x2;
+                int temp3 = matrix[x3][y3];
+                matrix[x3][y3] = temp2;
+                
+                int x4 = y3, y4 = n - 1 - x3;
+                matrix[x4][y4] = temp3;
+                
+            }
+        }
+    }
+}
+
+
+
+q2)
+
+
+class Solution {
+    public String reverseWords(String s) {
+        
+        StringBuilder res = new StringBuilder();
+        List<String> words = new ArrayList<>();
+        
+        int pos = 0;
+        
+        while(pos < s.length()){
+            
+            while(pos < s.length() && s.charAt(pos) == ' ')
+                pos++;
+            
+            
+            StringBuilder currentWord = new StringBuilder();
+            
+            while(pos < s.length() && s.charAt(pos) != ' ')
+                currentWord.append(s.charAt(pos++));
+            
+            
+            while(pos < s.length() && s.charAt(pos) == ' ')
+                pos++;
+            
+            
+            if(!currentWord.equals(""))
+                words.add(currentWord.toString());
+        }
+        
+        for(int i = words.size() - 1 ; i >= 0 ; i--)
+            res.append(words.get(i) + " ");
+        
+        
+        if(!res.equals(""))
+            res.setLength(res.length() - 1);
+        
+        
+        return res.toString();
+    }
+}
+
+
+
+q3)
+
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        
+        boolean firstRow = false, firstColumn = false;
+        
+        for(int i = 0 ; i < matrix.length ; i ++)
+            for(int j = 0 ; j < matrix[0].length ; j++){
+                
+                if(matrix[i][j] == 0){
+                    
+                    if(i == 0) firstRow = true;
+                    if(j == 0) firstColumn = true;
+                    
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        
+        
+        
+        for(int i = 1 ; i < matrix.length ; i++)
+            for(int j = 1 ; j < matrix[0].length ; j ++)
+                
+                if(matrix[0][j] == 0 || matrix[i][0] == 0)
+                    matrix[i][j] = 0;
+                
+            
+        
+    
+        if(firstColumn == true)
+            for(int i = 0 ; i < matrix.length ; i++)
+                matrix[i][0] = 0;
+            
+        
+        
+        if(firstRow == true)
+            for(int i = 0 ; i < matrix[0].length ; i++)
+                matrix[0][i] = 0;
+        
+        
+    }
+}
+
+
+
+q4)
+
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        int[] w1 = new int[26];
+        int[] w2 = new int[26];
+
+        for(char c : s.toCharArray()){
+            w1[c - 'a']++;
+        }
+        
+        for(char c : t.toCharArray()){
+            w2[c - 'a']++;
+        }
+        
+        for(int i = 0 ; i < 26 ; i++){
+            if(w1[i] != w2[i]) return false;
+        }
+        
+        return true;
+        
+    }
+}
+
+
+
+q5)
+
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        
+        if(strs.length == 0) return "";
+        
+        char[] pre = strs[0].toCharArray();
+        int index = pre.length - 1;
+        
+        for(int i = 1 ; i < strs.length ; i ++){
+            
+            char[] currentWord = strs[i].toCharArray();
+            
+            index = Math.min(index, currentWord.length - 1);
+            
+            for(int j = 0 ; j <= index ; j ++){
+                if(currentWord[j] != pre[j]){
+                    index = j - 1;
+                    break;
+                }
+            }
+            
+            if(index == -1) return "";
+            
+        }
+        
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i = 0 ; i <= index ; i ++){
+            sb.append(pre[i]);
+        }
+        
+        return sb.toString();
+        
+    }
+}
+
+
+
+
